@@ -2,5 +2,10 @@
 
 ## Food Delivery Drone
 
-It is a Drone that can automatically take off and go to the way point that we allocated. The drone is made using the APM Flight controller. The Flight mission (Take off and Landing Location ) is assigned Using mission planner Software . There is a box attached to the drone when the drone reaches the location where we need to drop the box will open automatically and drop the food.
+It is a Drone that  takes off and flies straight to its destination, following the path we set for it. It's powered by the APM Flight controller and guided by mission planner software. What's more, it's equipped with a special box that opens up at the designated location to deliver its payload of food.
  
+
+
+## Hydrophonis
+
+This is a test project that we implimented in our collage. We set up a small semi automatic hydrophonics farm in our collage . This farm is we are 
