@@ -2,7 +2,7 @@
 #define TEMP_SENSOR_PIN A0
 
 // Define the pin for the heat bed
-#define HEATBED_PIN 5
+#define HEATBED_PIN 16
 
 // Define the target temperature for the heat bed
 #define TARGET_TEMPERATURE 60
@@ -25,7 +25,20 @@ double error, last_error = 0;
 double ITerm, last_input = 0;
 unsigned long last_time;
 
+// setting PWM properties
+const int freq = 5000;
+const int ledChannel = 0;
+const int resolution = 8;
+const int ledPin = 16;  // 16 corresponds to GPIO16
+
+
 void setup() {
+
+    // configure LED PWM functionalitites
+  ledcSetup(ledChannel, freq, resolution);
+  
+  // attach the channel to the GPIO to be controlled
+  ledcAttachPin(ledPin, ledChannel);
   // Start serial communication
   Serial.begin(9600);
 
@@ -71,8 +84,9 @@ void loop() {
     digitalWrite(HEATBED_PIN, HIGH);
     Serial.println("Heat bed on");
   }
-  analogWrite(HEATBED_PIN, output);
-
+  // analog write for arduino boards
+  // analogWrite(HEATBED_PIN, output);
+ledcWrite(ledChannel, output);
   // Wait for a moment before checking the temperature again
   delay(1000);
 }
