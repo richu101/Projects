@@ -1,5 +1,7 @@
 #include <dht11.h>
 
+// https://github.com/adidax/dht11#readme - DHT11 Liberary link
+
 #define DHT11PIN 4
 
 
