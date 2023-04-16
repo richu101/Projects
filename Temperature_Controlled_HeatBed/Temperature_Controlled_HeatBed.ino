@@ -1,3 +1,16 @@
+#include <OneWire.h>
+#include <DallasTemperature.h>
+
+// GPIO where the DS18B20 is connected to
+const int oneWireBus = 14;     
+
+// Setup a oneWire instance to communicate with any OneWire devices
+OneWire oneWire(oneWireBus);
+
+// Pass our oneWire reference to Dallas Temperature sensor 
+DallasTemperature sensors(&oneWire);
+
+
 // Define the pin for the temperature sensor
 #define TEMP_SENSOR_PIN A0
 
@@ -29,7 +42,7 @@ unsigned long last_time;
 const int freq = 5000;
 const int ledChannel = 0;
 const int resolution = 8;
-const int ledPin = 16;  // 16 corresponds to GPIO16
+const int ledPin = 27;  // 16 corresponds to GPIO16
 
 
 void setup() {
@@ -44,17 +57,19 @@ void setup() {
 
   // Set the pin mode for the heat bed
   pinMode(HEATBED_PIN, OUTPUT);
-
+   sensors.begin();
   // Set the initial time for the PID controller
   last_time = millis();
 }
 
 void loop() {
   // Read the analog value from the temperature sensor and convert it to degrees Celsius
-  int sensorValue = analogRead(TEMP_SENSOR_PIN);
-  input = (sensorValue * 5.0 / 1023.0 - 0.5) * 100.0;
+  // int sensorValue = analogRead(TEMP_SENSOR_PIN);
+  // input = (sensorValue * 5.0 / 1023.0 - 0.5) * 100.0;
 
   // Print the current temperature to the serial monitor
+  sensors.requestTemperatures();\
+  float input = sensors.getTempCByIndex(0);
   Serial.print("Current temperature: ");
   Serial.print(input);
   Serial.println("°C");
@@ -88,5 +103,5 @@ void loop() {
   // analogWrite(HEATBED_PIN, output);
 ledcWrite(ledChannel, output);
   // Wait for a moment before checking the temperature again
-  delay(1000);
+  delay(500);
 }
