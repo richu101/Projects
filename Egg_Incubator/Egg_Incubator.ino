@@ -39,6 +39,8 @@ const int ledPin = 16;  // 16 corresponds to GPIO16
 
 dht11 DHT11;
 
+
+
 void  setup()
 {
   Serial.begin(9600);
